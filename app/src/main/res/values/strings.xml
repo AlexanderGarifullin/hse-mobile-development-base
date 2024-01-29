@@ -5,6 +5,7 @@
     <string name="btn_click_msg">Вы нажали на кнопку %s</string>
 
     <string name="label_choose_teacher">Выберите преподавателя:</string>
+    <string name="label_choose_group">Выберите группу:</string>
 
     <string name="btn_day">РАСПИСАНИЕ НА ДЕНЬ</string>
     <string name="btn_week">РАСПИСАНИЕ НА НЕДЕЛЮ</string>
