@@ -7,6 +7,7 @@
     tools:context=".TeacherActivity">
 
     <TextView
+        style="@style/MyLabels"
         android:id="@+id/textViewTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +19,7 @@
 
     <Spinner
         android:id="@+id/groupList"
-        android:layout_width="377dp"
+        android:layout_width="182dp"
         android:layout_height="48dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="7dp"
@@ -94,10 +95,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/teacher"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teacher">
 
         <Button
             android:id="@+id/btn_day"
