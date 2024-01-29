@@ -19,8 +19,8 @@
 
     <Spinner
         android:id="@+id/groupList"
-        android:layout_width="182dp"
-        android:layout_height="48dp"
+        android:layout_width="204dp"
+        android:layout_height="49dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="7dp"
         app:layout_constraintStart_toStartOf="parent"

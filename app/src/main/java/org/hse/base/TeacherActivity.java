@@ -35,7 +35,7 @@ public class TeacherActivity extends AppCompatActivity {
         initGroupList(groups);
 
         ArrayAdapter<?> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, groups);
+                R.layout.spinner_item_layout, groups);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -85,6 +85,6 @@ public class TeacherActivity extends AppCompatActivity {
         subject.setText(R.string.label_subject_base);
         cabinet.setText(R.string.label_cabinet_base);
         corp.setText(R.string.label_corp_base);
-        teacher.setText(R.string.label_choose_teacher);
+        teacher.setText(R.string.label_teacher_base);
     }
 }
