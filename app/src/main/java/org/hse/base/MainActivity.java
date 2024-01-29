@@ -2,6 +2,7 @@ package org.hse.base;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,23 +21,25 @@ public class MainActivity extends AppCompatActivity {
         buttonStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = String.format(getResources().getString(R.string.btn_click_msg),
-                        buttonStudent.getText().toString());
-                showMsg(msg);
+                showStudent();
             }
         });
 
         buttonTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = String.format(getResources().getString(R.string.btn_click_msg),
-                        buttonTeacher.getText().toString());
-                showMsg(msg);
+                showTeacher();
             }
         });
     }
 
-    private void showMsg(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    private void showStudent() {
+        Intent intent = new Intent(this, StudentActivity.class);
+        startActivity(intent);
+    }
+
+    private void showTeacher() {
+        Intent intent = new Intent(this, TeacherActivity.class);
+        startActivity(intent);
     }
 }
