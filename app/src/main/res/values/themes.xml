@@ -13,5 +13,10 @@
         <item name="colorSecondaryVariant">@color/blue</item>
     </style>
 
+    <style name="MyLabels" parent="android:TextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="Theme.Base" parent="Base.Theme.Base"/>
 </resources>

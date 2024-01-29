@@ -3,4 +3,8 @@
     <string name="button_student">РАСПИСАНИЕ ДЛЯ СТУДЕНТОВ</string>
     <string name="button_teacher">РАСПИСАНИЕ ДЛЯ ПРЕПОДАВАТЕЛЯ</string>
     <string name="btn_click_msg">Вы нажали на кнопку %s</string>
+    <string name="label_choose_teacher">Выберите преподавателя:</string>
+    <string name="btn_day">РАСПИСАНИЕ НА ДЕНЬ</string>
+    <string name="btn_week">РАСПИСАНИЕ НА НЕДЕЛЮ</string>
+
 </resources>
