@@ -9,6 +9,7 @@
     <string name="btn_day">РАСПИСАНИЕ НА ДЕНЬ</string>
     <string name="btn_week">РАСПИСАНИЕ НА НЕДЕЛЮ</string>
 
+    <string name="label_time">Сейчас: </string>
     <string name="label_status_base">Нет пар</string>
     <string name="label_subject_base">Дисципилна</string>
     <string name="label_cabinet_base">Кабинет</string>
