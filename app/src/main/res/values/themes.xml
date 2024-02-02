@@ -26,5 +26,9 @@
     <style name="MyMainButtons" parent="android:TextAppearance">
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="SettingBtn" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:backgroundTint">@color/dark_dark_blue</item>
+    </style>
+
     <style name="Theme.Base" parent="Base.Theme.Base"/>
 </resources>

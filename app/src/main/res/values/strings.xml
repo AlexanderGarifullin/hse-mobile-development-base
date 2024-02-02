@@ -2,6 +2,8 @@
     <string name="app_name">Timetable for HSE FE</string>
     <string name="button_student">РАСПИСАНИЕ ДЛЯ СТУДЕНТОВ</string>
     <string name="button_teacher">РАСПИСАНИЕ ДЛЯ ПРЕПОДАВАТЕЛЯ</string>
+    <string name="btn_settings">НАСТРОЙКИ</string>
+
     <string name="btn_click_msg">Вы нажали на кнопку %s</string>
 
     <string name="label_choose_teacher">Выберите преподавателя:</string>
