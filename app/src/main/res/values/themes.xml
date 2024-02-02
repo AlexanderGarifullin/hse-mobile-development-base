@@ -16,8 +16,15 @@
 
     <style name="MyLabels" parent="android:TextAppearance">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/light_blue</item>
     </style>
 
+    <style name="MyValue" parent="android:TextAppearance">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MyMainButtons" parent="android:TextAppearance">
+        <item name="android:textSize">12sp</item>
+    </style>
     <style name="Theme.Base" parent="Base.Theme.Base"/>
 </resources>

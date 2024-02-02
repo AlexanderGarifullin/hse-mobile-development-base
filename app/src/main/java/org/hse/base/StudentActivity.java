@@ -18,7 +18,7 @@ import java.util.Locale;
 
 public class StudentActivity extends AppCompatActivity {
 
-    private TextView time, status, subject, cabinet, corp, teacher;
+    private TextView timeLabel, timeValue, status, subject, cabinet, corp, teacher;
     private Date currentTime;
 
     @Override
@@ -50,7 +50,9 @@ public class StudentActivity extends AppCompatActivity {
             }
         });
 
-        time = findViewById(R.id.time);
+        timeLabel = findViewById(R.id.timeLabelStudent);
+        timeValue = findViewById(R.id.timeStudent);
+
         initTime();
 
         status = findViewById(R.id.status);
@@ -83,13 +85,14 @@ public class StudentActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE",
                 Locale.forLanguageTag("RU"));
         String[] dateSplit = simpleDateFormat.format(currentTime).split(" ");
-        String timeText = getString(R.string.label_time) + dateSplit[0] + " " +
+        String timeText = dateSplit[0] + " " +
                 dateSplit[1].substring(0,1).toUpperCase() +
                 dateSplit[1].substring(1);
-        time.setText(timeText);
+        timeValue.setText(timeText);
     }
 
     private void initData() {
+        timeLabel.setText(R.string.label_time);
         status.setText(R.string.label_status_base);
         subject.setText(R.string.label_subject_base);
         cabinet.setText(R.string.label_cabinet_base);

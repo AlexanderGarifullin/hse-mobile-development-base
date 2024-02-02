@@ -25,9 +25,10 @@
         app:srcCompat="@drawable/logo_hse_cmyk_e" />
 
     <Button
+        style="@style/MyMainButtons"
         android:id="@+id/button_student"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="48dp"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="4dp"
@@ -38,9 +39,10 @@
 
     <Button
         android:id="@+id/button_teacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        style="@style/MyMainButtons"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="36dp"
         android:text="@string/button_teacher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
