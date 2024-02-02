@@ -3,6 +3,8 @@
     <string name="button_student">РАСПИСАНИЕ ДЛЯ СТУДЕНТОВ</string>
     <string name="button_teacher">РАСПИСАНИЕ ДЛЯ ПРЕПОДАВАТЕЛЯ</string>
     <string name="btn_settings">НАСТРОЙКИ</string>
+    <string name="btn_save">СОХРАНИТЬ</string>
+
 
     <string name="btn_click_msg">Вы нажали на кнопку %s</string>
 
@@ -18,4 +20,9 @@
     <string name="label_cabinet_base">Кабинет</string>
     <string name="label_corp_base">Корпус</string>
     <string name="label_teacher_base">Преподаватель</string>
+
+    <string name="btn_make_photo">СДЕЛАТЬ ФОТО</string>
+    <string name="label_point_photo">Укажите фото</string>
+    <string name="label_point_name">Укажите ваше имя</string>
+    <string name="label_current">Текущая освещенность:</string>
 </resources>
