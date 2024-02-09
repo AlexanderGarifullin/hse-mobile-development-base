@@ -1,14 +1,129 @@
 package org.hse.base;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class SettingsActivity extends AppCompatActivity {
+import java.io.File;
+import java.io.IOException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+
+public class SettingsActivity extends AppCompatActivity implements SensorEventListener {
+
+    private SensorManager sensorManager;
+    private PreferenceManager preferenceManager;
+    private Sensor light;
+    private EditText nameEdit;
+    private TextView sensorLight;
+
+    private static final String TAG = "SettingsActivity";
+    private static final String PERMISSION = "android.permission.CAMERA";
+    private static final Integer REQUEST_PERMISSION_CODE = 1;
+    private static final Integer REQUEST_IMAGE_CAPTURE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorLight = findViewById(R.id.textViewLevel);
+        sensorLight.setText("0 lux");
+        nameEdit = findViewById(R.id.editTextName);
+
+        getName();
+    }
+
+    public void checkPermission() {
+        int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION)){
+                Toast.makeText(getApplicationContext(), getString(R.string.ask_photo_perm), Toast.LENGTH_LONG).show();
+            }else {
+                ActivityCompat.requestPermissions(this, new String[]{PERMISSION}, REQUEST_PERMISSION_CODE);
+            }
+        } else {
+            dispatchTakePictureIntent(); //если есть разрешение фоткаем
+        }
+    }
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.e(TAG, "Create file", ex);
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                try {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                } catch (ActivityNotFoundException e) {
+                    Log.e(TAG, "Start activity", e);
+                }
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        File pathOfStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String filePrefix = "img_" + timeStamp + "_";
+        String suffix = ".jpg";
+
+        File image = File.createTempFile(filePrefix, suffix, pathOfStorageDir);
+        return image;
+    }
+
+    public void getName() {
+        String name = preferenceManager.getValue("name", "");
+        if (!name.isEmpty())
+            nameEdit.setText(name);
+    }
+
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy){
+
+    }
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        float lux = event.values[0];
+        sensorLight.setText("{lux} lux");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
     }
 }

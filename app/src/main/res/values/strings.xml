@@ -25,4 +25,6 @@
     <string name="label_point_photo">Укажите фото</string>
     <string name="label_point_name">Укажите ваше имя</string>
     <string name="label_current">Текущая освещенность:</string>
+
+    <string name="ask_photo_perm">Для снятия фото нужно предоставить права на фото</string>
 </resources>
