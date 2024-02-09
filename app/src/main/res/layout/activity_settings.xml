@@ -8,7 +8,7 @@
 
     <Button
         style="@style/SettingBtn"
-        android:id="@+id/button"
+        android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -44,13 +44,13 @@
                     android:text="@string/label_point_photo" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@tools:sample/avatars" />
+                    android:id="@+id/userPhoto"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    tools:srcCompat="@drawable/default_avatar" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_make_photo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
@@ -63,7 +63,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -78,7 +78,7 @@
                     android:text="@string/label_current" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textViewLevel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
