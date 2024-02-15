@@ -8,7 +8,7 @@ public class PreferenceManager {
     private final SharedPreferences sharedPref;
 
     public PreferenceManager(Context context) {
-        this.sharedPref = context.getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
+        sharedPref = context.getSharedPreferences(PREFERENCE_FILE, Context.MODE_PRIVATE);
     }
 
     public void saveValue(String key, String value){

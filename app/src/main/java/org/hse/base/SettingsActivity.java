@@ -32,7 +32,7 @@ import java.util.Date;
 
 
 
-public class SettingsActivity extends AppCompatActivity implements SensorEventListener {
+public class SettingsActivity extends AppCompatActivity  {
 
     private SensorManager sensorManager;
     private PreferenceManager preferenceManager;
@@ -52,13 +52,13 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        preferenceManager = new PreferenceManager(this);
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         sensorLight = findViewById(R.id.textViewLevel);
         sensorLight.setText("0 lux");
         nameEdit = findViewById(R.id.editTextName);
-
-        //getName();
 
         Button saveButton = findViewById(R.id.btn_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -78,30 +78,9 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
 
         userPhoto = findViewById(R.id.userPhoto);
 
-        //getPhoto();
+        getPhoto();
     }
 
-    @Override
-    public final void onAccuracyChanged(Sensor sensor, int accuracy){
-
-    }
-    @Override
-    public final void onSensorChanged(SensorEvent event) {
-        float lux = event.values[0];
-        sensorLight.setText(lux + " lux");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -110,6 +89,8 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
             int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION);
             if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.ask_photo_perm), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -117,25 +98,27 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             userPhoto.setImageURI(photoURI);
         }
     }
 
     public void checkPermission() {
-        int permissionCheck = ActivityCompat.checkSelfPermission(this, PERMISSION);
+        int permissionCheck = ActivityCompat.checkSelfPermission(
+                this, PERMISSION);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    PERMISSION)) {
                 Toast.makeText(getApplicationContext(), getString(R.string.ask_photo_perm), Toast.LENGTH_LONG).show();
-            }else {
+            } else {
                 ActivityCompat.requestPermissions(this, new String[]{PERMISSION}, REQUEST_PERMISSION_CODE);
             }
         } else {
-            dispatchTakePictureIntent(); //если есть разрешение фоткаем
+            dispatchTakePictureIntent();
         }
     }
-    private void dispatchTakePictureIntent(){
+
+    private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
@@ -145,46 +128,45 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
                 Log.e(TAG, "Create file", ex);
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", photoFile);
+                photoURI = FileProvider.getUriForFile(this,
+                        BuildConfig.APPLICATION_ID + ".provider",
+                        photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 try {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                } catch (ActivityNotFoundException e) {
-                    Log.e(TAG, "Start activity", e);
+                } catch (ActivityNotFoundException ex) {
+                    Log.e(TAG, "Start activity:", ex);
                 }
             }
         }
     }
 
     private File createImageFile() throws IOException {
-        File pathOfStorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String filePrefix = "img_" + timeStamp + "_";
-        String suffix = ".jpg";
-
-        File image = File.createTempFile(filePrefix, suffix, pathOfStorageDir);
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
         return image;
     }
 
-    public void getName() {
-        String name = preferenceManager.getValue("name", "");
-        if (!name.isEmpty())
-            nameEdit.setText(name);
-    }
 
     private void save() {
-        if (nameEdit.getText() != null)
-            preferenceManager.saveValue("name", nameEdit.getText().toString());
-        if (photoURI != null)
-            preferenceManager.saveValue("avatar", photoURI.toString());
-        Toast.makeText(getApplicationContext(), getString(R.string.saved_image_msg), Toast.LENGTH_SHORT).show();
+        if (photoURI != null) {
+            preferenceManager.saveValue("photo_path", photoURI.toString());
+            Toast.makeText(getApplicationContext(), getString(R.string.saved_image_msg), Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void getPhoto() {
-        String uri = preferenceManager.getValue("avatar", "");
-        if (uri != ""){
+    private void getPhoto(){
+        String uri = preferenceManager.getValue("photo_path", null);
+        if (uri != null) {
             photoURI = Uri.parse(uri);
             userPhoto.setImageURI(photoURI);
         }
     }
+
 }
