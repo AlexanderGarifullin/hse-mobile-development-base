@@ -32,7 +32,7 @@ import java.util.Date;
 
 
 
-public class SettingsActivity extends AppCompatActivity  {
+public class SettingsActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private PreferenceManager preferenceManager;
@@ -56,9 +56,13 @@ public class SettingsActivity extends AppCompatActivity  {
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
         sensorLight = findViewById(R.id.textViewLevel);
         sensorLight.setText("0 lux");
+
         nameEdit = findViewById(R.id.editTextName);
+
+
 
         Button saveButton = findViewById(R.id.btn_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -77,9 +81,33 @@ public class SettingsActivity extends AppCompatActivity  {
         });
 
         userPhoto = findViewById(R.id.userPhoto);
-
         getPhoto();
     }
+
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public final void onSensorChanged(SensorEvent event) {
+        float lux = event.values[0];
+        sensorLight.setText(String.format("%.2f lux", lux));
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+
+
 
 
     @Override
@@ -152,7 +180,6 @@ public class SettingsActivity extends AppCompatActivity  {
         );
         return image;
     }
-
 
     private void save() {
         if (photoURI != null) {
