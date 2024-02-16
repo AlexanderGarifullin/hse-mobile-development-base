@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         sensorLight.setText("0 lux");
 
         nameEdit = findViewById(R.id.editTextName);
-
+        getName();
 
 
         Button saveButton = findViewById(R.id.btn_save);
@@ -105,10 +105,6 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         super.onPause();
         sensorManager.unregisterListener(this);
     }
-
-
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -186,6 +182,8 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
             preferenceManager.saveValue("photo_path", photoURI.toString());
             Toast.makeText(getApplicationContext(), getString(R.string.saved_image_msg), Toast.LENGTH_SHORT).show();
         }
+        if (nameEdit.getText() != null)
+            preferenceManager.saveValue("name", nameEdit.getText().toString());
     }
 
     private void getPhoto(){
@@ -194,6 +192,12 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
             photoURI = Uri.parse(uri);
             userPhoto.setImageURI(photoURI);
         }
+    }
+
+    private void getName() {
+        String name = preferenceManager.getValue("name", null);
+        if (name != null)
+            nameEdit.setText(name);
     }
 
 }
