@@ -30,4 +30,5 @@
     <string name="saved_image_msg">Сохранено</string>
 
     <string name="all_sensors">Все датчики:</string>
+    <string name="lux">"%.2f lux</string>
 </resources>

@@ -35,7 +35,7 @@ import java.util.List;
 
 
 public class SettingsActivity extends AppCompatActivity implements SensorEventListener {
-
+    Uri photoURI;
     private SensorManager sensorManager;
     private PreferenceManager preferenceManager;
     private LinearLayout sensorListLayout;
@@ -43,8 +43,8 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
     private EditText nameEdit;
     private TextView sensorLight;
     private ImageView userPhoto;
-    Uri photoURI;
-
+    private static final String PreferenceManagerName = "name";
+    private static final String PreferenceManagerPhotoPath = "photo_path";
     private static final String TAG = "SettingsActivity";
     private static final String PERMISSION = "android.permission.CAMERA";
     private static final Integer REQUEST_PERMISSION_CODE = 1;
@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
         sensorLight = findViewById(R.id.textViewLevel);
-        sensorLight.setText("0 lux");
+        sensorLight.setText(getString(R.string.lux, 0.0));
 
         nameEdit = findViewById(R.id.editTextName);
         getName();
@@ -99,7 +99,7 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
     @Override
     public final void onSensorChanged(SensorEvent event) {
         float lux = event.values[0];
-        sensorLight.setText(String.format("%.2f lux", lux));
+        sensorLight.setText(getString(R.string.lux, lux));
     }
 
     @Override
@@ -187,15 +187,15 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
 
     private void save() {
         if (photoURI != null) {
-            preferenceManager.saveValue("photo_path", photoURI.toString());
+            preferenceManager.saveValue(PreferenceManagerPhotoPath, photoURI.toString());
             Toast.makeText(getApplicationContext(), getString(R.string.saved_image_msg), Toast.LENGTH_SHORT).show();
         }
         if (nameEdit.getText() != null)
-            preferenceManager.saveValue("name", nameEdit.getText().toString());
+            preferenceManager.saveValue(PreferenceManagerName, nameEdit.getText().toString());
     }
 
     private void getPhoto(){
-        String uri = preferenceManager.getValue("photo_path", null);
+        String uri = preferenceManager.getValue(PreferenceManagerPhotoPath, null);
         if (uri != null) {
             photoURI = Uri.parse(uri);
             userPhoto.setImageURI(photoURI);
@@ -203,7 +203,7 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
     }
 
     private void getName() {
-        String name = preferenceManager.getValue("name", null);
+        String name = preferenceManager.getValue(PreferenceManagerName, null);
         if (name != null)
             nameEdit.setText(name);
     }
