@@ -88,4 +88,22 @@
 
     </TableLayout>
 
+    <LinearLayout
+        android:id="@+id/sensorListLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_save">
+
+        <TextView
+            android:id="@+id/textViewAllSensors"
+            style="@style/MyLabels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/all_sensors" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

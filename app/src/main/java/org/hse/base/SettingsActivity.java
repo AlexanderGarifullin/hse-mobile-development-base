@@ -18,9 +18,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,13 +31,14 @@ import java.io.IOException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.List;
 
 
 public class SettingsActivity extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private PreferenceManager preferenceManager;
+    private LinearLayout sensorListLayout;
     private Sensor light;
     private EditText nameEdit;
     private TextView sensorLight;
@@ -63,6 +66,11 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
         nameEdit = findViewById(R.id.editTextName);
         getName();
 
+        sensorListLayout = findViewById(R.id.sensorListLayout);
+        List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+        for (Sensor sensor: sensorList) {
+            addSensorToList(sensor);
+        }
 
         Button saveButton = findViewById(R.id.btn_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -200,4 +208,13 @@ public class SettingsActivity extends AppCompatActivity implements SensorEventLi
             nameEdit.setText(name);
     }
 
+    private void addSensorToList(Sensor sensor) {
+        TextView sensorTextView = new TextView(this);
+        sensorTextView.setText(sensor.getName());
+        sensorTextView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        sensorListLayout.addView(sensorTextView);
+    }
 }

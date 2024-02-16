@@ -28,4 +28,6 @@
 
     <string name="ask_photo_perm">Для снятия фото нужно предоставить права на фото</string>
     <string name="saved_image_msg">Сохранено</string>
+
+    <string name="all_sensors">Все датчики:</string>
 </resources>
