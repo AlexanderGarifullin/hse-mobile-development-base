@@ -15,4 +15,8 @@ Add the settings activity and logic for it.
 2. Use the light sensor parameters and display the dynamic light value in the settings activiy.
 3. To finalize the work with the name field. Save it to preferences and read it when the screen is opened. To work with preferences through the PreferenceManager
 4. Display a list of all available sensors in the settings.
+### The fourth stage (Network (API), RecyclerView)
+Add work with the network (API)
+1. Make requests to the network to receive a schedule.
+2. Output information about the received time from the server. 
 
