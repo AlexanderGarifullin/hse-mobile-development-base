@@ -1,4 +1,4 @@
-# hse-mobile-development-base
+# hse-mobile-development-base (Timetable)
 ## The Base project for the course "Development of mobile applications"
 ### The first stage (Basic syntax: Activity, Buttons, Toasts, ImageView, TextView, etc.)
 Create a project and add the basic elements.
