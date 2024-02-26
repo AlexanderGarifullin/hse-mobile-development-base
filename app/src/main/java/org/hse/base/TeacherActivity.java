@@ -16,12 +16,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TeacherActivity extends AppCompatActivity {
+public class TeacherActivity extends BaseActivity {
 
     private TextView timeLabel, timeValue, status, subject, cabinet, corp, teacher;
     private Date currentTime;
-
-
 
 
     @Override
@@ -70,16 +68,16 @@ public class TeacherActivity extends AppCompatActivity {
         groups.add(new Group(2, "Преподаватель 2"));
     }
 
-    private void initTime() {
-        currentTime = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE",
-                Locale.forLanguageTag("RU"));
-        String[] dateSplit = simpleDateFormat.format(currentTime).split(" ");
-        String timeText = dateSplit[0] + " " +
-                dateSplit[1].substring(0,1).toUpperCase() +
-                dateSplit[1].substring(1);
-        timeValue.setText(timeText);
-    }
+//    private void initTime() {
+//        currentTime = new Date();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE",
+//                Locale.forLanguageTag("RU"));
+//        String[] dateSplit = simpleDateFormat.format(currentTime).split(" ");
+//        String timeText = dateSplit[0] + " " +
+//                dateSplit[1].substring(0,1).toUpperCase() +
+//                dateSplit[1].substring(1);
+//        timeValue.setText(timeText);
+//    }
 
     private void initData() {
         timeLabel.setText(R.string.label_time);
