@@ -2,6 +2,7 @@ package org.hse.base;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,14 +21,14 @@ public class TeacherActivity extends BaseActivity {
 
     private TextView timeLabel, timeValue, status, subject, cabinet, corp, teacher;
     private Date currentTime;
-
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
-        final Spinner spinner = findViewById(R.id.groupList);
+        spinner = findViewById(R.id.groupList);
 
         List<Group> groups = new ArrayList<>();
         initGroupList(groups);
@@ -61,6 +62,28 @@ public class TeacherActivity extends BaseActivity {
         corp = findViewById(R.id.corp);
         teacher = findViewById(R.id.teacher);
         initData();
+
+        View scheduleDay = findViewById(R.id.btn_day);
+        scheduleDay.setOnClickListener(v -> showSchedule(ScheduleType.DAY));
+
+        View scheduleWeek = findViewById(R.id.btn_week);
+        scheduleWeek.setOnClickListener(v -> showSchedule(ScheduleType.WEEK));
+    }
+
+    private void showSchedule(ScheduleType type) {
+        Object selectedItem = spinner.getSelectedItem();
+        if (!(selectedItem instanceof Group)) {
+            return;
+        }
+        showScheduleImlp(ScheduleMode.TEACHER, type, (Group) selectedItem);
+    }
+
+    protected showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra();
+        intent.putExtra();
+        intent.putExtra();
+        startActivity(intent);
     }
 
     private void initGroupList(List<Group> groups){
