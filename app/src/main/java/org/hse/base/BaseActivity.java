@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -21,8 +22,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private final static String TAG = String.valueOf(R.string.BaseTag);
-    public static final String URL = String.valueOf(R.string.BaseUrl);
+    private final static String TAG = "BaseActivity";
+    public static final String URL = "https://api.ipgeolocation.io/ipgeo?apiKey=b03018f75ed94023a005637878ec0977";
     protected TextView time;
     protected Date currentTime;
     private OkHttpClient client = new OkHttpClient();
@@ -42,7 +43,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
     }
 
-    protected void initTime(){
+    protected void initTime(String type){
+        if (Objects.equals(type, String.valueOf(R.string.studentType))) {
+            time = findViewById(R.id.timeStudent);
+        } else if (Objects.equals(type, String.valueOf(R.string.teacherType))){
+            time = findViewById(R.id.time);
+        }
         getTime();
     }
 
@@ -51,8 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
         }
         currentTime = dateTime;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE", Locale.forLanguageTag("ru"));
-        time.setText(simpleDateFormat.format(currentTime));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE",
+                Locale.forLanguageTag("RU"));
+        String[] dateSplit = simpleDateFormat.format(currentTime).split(" ");
+        String timeText = dateSplit[0] + " " +
+                dateSplit[1].substring(0,1).toUpperCase() +
+                dateSplit[1].substring(1);
+        time.setText(timeText);
     }
 
     private void parseResponse(Response response) {
@@ -66,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             Log.d(TAG, string);
             TimeResponse timeRespone = gson.fromJson(string, TimeResponse.class);
             String currentTimeVal = timeRespone.getTimeZone().getCurrentTime();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm::ss.SSS", Locale.getDefault());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.getDefault());
             Date dateTime = simpleDateFormat.parse(currentTimeVal);
             runOnUiThread(()->showTime(dateTime));
         } catch (Exception e) {

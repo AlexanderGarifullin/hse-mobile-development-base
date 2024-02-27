@@ -54,7 +54,7 @@ public class TeacherActivity extends BaseActivity {
 
         timeLabel = findViewById(R.id.timeLabelStudent);
         timeValue = findViewById(R.id.time);
-        initTime();
+        initTime(String.valueOf(R.string.teacherType));
 
         status = findViewById(R.id.status);
         subject = findViewById(R.id.subject);
@@ -75,14 +75,14 @@ public class TeacherActivity extends BaseActivity {
         if (!(selectedItem instanceof Group)) {
             return;
         }
-        showScheduleImlp(ScheduleMode.TEACHER, type, (Group) selectedItem);
+        showScheduleImpl(ScheduleMode.TEACHER, type, (Group) selectedItem);
     }
 
-    protected showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
+    protected void showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
         Intent intent = new Intent(this, ScheduleActivity.class);
-        intent.putExtra();
-        intent.putExtra();
-        intent.putExtra();
+        intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
+        intent.putExtra(ScheduleActivity.ARG_TYPE, type);
+        intent.putExtra(ScheduleActivity.ARG_MODE, mode);
         startActivity(intent);
     }
 
@@ -91,16 +91,6 @@ public class TeacherActivity extends BaseActivity {
         groups.add(new Group(2, "Преподаватель 2"));
     }
 
-//    private void initTime() {
-//        currentTime = new Date();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE",
-//                Locale.forLanguageTag("RU"));
-//        String[] dateSplit = simpleDateFormat.format(currentTime).split(" ");
-//        String timeText = dateSplit[0] + " " +
-//                dateSplit[1].substring(0,1).toUpperCase() +
-//                dateSplit[1].substring(1);
-//        timeValue.setText(timeText);
-//    }
 
     private void initData() {
         timeLabel.setText(R.string.label_time);

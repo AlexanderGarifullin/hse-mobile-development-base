@@ -2,6 +2,7 @@ package org.hse.base;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,17 +17,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class StudentActivity extends AppCompatActivity {
+public class StudentActivity extends BaseActivity {
 
     private TextView timeLabel, timeValue, status, subject, cabinet, corp, teacher;
     private Date currentTime;
+
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
-        final Spinner spinner = findViewById(R.id.groupList);
+        spinner = findViewById(R.id.groupList);
 
         List<Group> groups = new ArrayList<>();
         initGroupList(groups);
@@ -53,7 +56,7 @@ public class StudentActivity extends AppCompatActivity {
         timeLabel = findViewById(R.id.timeLabelStudent);
         timeValue = findViewById(R.id.timeStudent);
 
-        initTime();
+        initTime(String.valueOf(R.string.studentType));
 
         status = findViewById(R.id.status);
         subject = findViewById(R.id.subject);
@@ -61,6 +64,28 @@ public class StudentActivity extends AppCompatActivity {
         corp = findViewById(R.id.corp);
         teacher = findViewById(R.id.teacher);
         initData();
+
+        View scheduleDay = findViewById(R.id.btn_day);
+        scheduleDay.setOnClickListener(v -> showSchedule(ScheduleType.DAY));
+
+        View scheduleWeek = findViewById(R.id.btn_week);
+        scheduleWeek.setOnClickListener(v -> showSchedule(ScheduleType.WEEK));
+    }
+
+    private void showSchedule(ScheduleType type) {
+        Object selectedItem = spinner.getSelectedItem();
+        if (!(selectedItem instanceof Group)) {
+            return;
+        }
+        showScheduleImpl(ScheduleMode.STUDENT, type, (Group) selectedItem);
+    }
+
+    protected void showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
+        intent.putExtra(ScheduleActivity.ARG_TYPE, type);
+        intent.putExtra(ScheduleActivity.ARG_MODE, mode);
+        startActivity(intent);
     }
 
     private void initGroupList(List<Group> groups){
@@ -80,16 +105,6 @@ public class StudentActivity extends AppCompatActivity {
         return program + "-" + year + "-" + groupNumber;
     }
 
-    private void initTime() {
-        currentTime = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm, EEEE",
-                Locale.forLanguageTag("RU"));
-        String[] dateSplit = simpleDateFormat.format(currentTime).split(" ");
-        String timeText = dateSplit[0] + " " +
-                dateSplit[1].substring(0,1).toUpperCase() +
-                dateSplit[1].substring(1);
-        timeValue.setText(timeText);
-    }
 
     private void initData() {
         timeLabel.setText(R.string.label_time);
