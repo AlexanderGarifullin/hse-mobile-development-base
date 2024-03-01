@@ -16,5 +16,7 @@ public class ViewHolderHeader extends RecyclerView.ViewHolder {
         this.onItemClick=onItemClick;
         title=itemView.findViewById(R.id.title);
     }
-    public void bind(final ScheduleItemHeader data) {title.setText(data.getTitle());}
+    public void bind(String date) {
+        title.setText(date);
+    }
 }

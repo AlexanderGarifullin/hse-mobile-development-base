@@ -56,12 +56,16 @@ public class ItemAdapter extends
         if (holder instanceof ViewHolder) {
             ((ViewHolder)holder).bind(data);
         } else if (holder instanceof ViewHolderHeader) {
-            ((ViewHolderHeader)holder).bind((ScheduleItemHeader) data);
+            ((ViewHolderHeader)holder).bind(((ScheduleItemHeader) data).getTitle());
         }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.dataList.size();
+    }
+
+    public void setDataList(List<ScheduleItem> dataList){
+        this.dataList = dataList;
     }
 }
