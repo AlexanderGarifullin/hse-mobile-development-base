@@ -32,21 +32,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, "getTime", e);
-            }
-
-            @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 parseResponse(response);
+            }
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.e(TAG, "getTime", e);
             }
         });
     }
 
     protected void initTime(String type){
-        if (Objects.equals(type, String.valueOf(R.string.studentType))) {
+        if (Objects.equals(type, getString(R.string.studentType))) {
             time = findViewById(R.id.timeStudent);
-        } else if (Objects.equals(type, String.valueOf(R.string.teacherType))){
+        } else if (Objects.equals(type, getString(R.string.teacherType))){
             time = findViewById(R.id.time);
         }
         getTime();

@@ -54,7 +54,7 @@ public class TeacherActivity extends BaseActivity {
 
         timeLabel = findViewById(R.id.timeLabelStudent);
         timeValue = findViewById(R.id.time);
-        initTime(String.valueOf(R.string.teacherType));
+        initTime(getString(R.string.teacherType));
 
         status = findViewById(R.id.status);
         subject = findViewById(R.id.subject);
@@ -83,6 +83,7 @@ public class TeacherActivity extends BaseActivity {
         intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
         intent.putExtra(ScheduleActivity.ARG_TYPE, type);
         intent.putExtra(ScheduleActivity.ARG_MODE, mode);
+        intent.putExtra(ScheduleActivity.ARG_NAME, group.getName());
         startActivity(intent);
     }
 

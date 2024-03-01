@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class ScheduleActivity extends AppCompatActivity {
     public static String ARG_TYPE = "Type";
     public static String ARG_MODE = "Mode";
     public static String ARG_ID = "Id";
+    public static String ARG_NAME = "Name";
     public static int DEFAULT_ID = 0;
     private ScheduleMode mode;
     private ScheduleType type;
@@ -25,6 +28,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private int id;
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
+    private TextView scheduleTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class ScheduleActivity extends AppCompatActivity {
         type = (ScheduleType) getIntent().getSerializableExtra(ARG_TYPE);
         mode = (ScheduleMode) getIntent().getSerializableExtra(ARG_MODE);
         id = getIntent().getIntExtra(ARG_ID, DEFAULT_ID);
+        name = getIntent().getStringExtra(ARG_NAME);
 
         recyclerView = findViewById(R.id.timetable_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,6 +51,13 @@ public class ScheduleActivity extends AppCompatActivity {
         adapter = new ItemAdapter(onItemClick);
         recyclerView.setAdapter(adapter);
         initData();
+
+        scheduleTitle = findViewById(R.id.scheduleTitle);
+        setTitle();
+    }
+
+    private void setTitle() {
+        scheduleTitle.setText(name);
     }
 
     private void initData() {
@@ -69,7 +81,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item.setEnd("13:20");
         item.setType("Практическое занятие");
         item.setName("Анализ данных (анг)");
-        item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
+        item.setPlace("Ауд. 504Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
         list.add(item);
 
@@ -78,7 +90,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item.setEnd("15:50");
         item.setType("Практическое занятие");
         item.setName("Анализ данных (анг)");
-        item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
+        item.setPlace("Ауд. 506Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
         list.add(item);
 
@@ -87,7 +99,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item.setEnd("17:20");
         item.setType("Практическое занятие");
         item.setName("Анализ данных (анг)");
-        item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
+        item.setPlace("Ауд. 505Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
         list.add(item);
 
@@ -96,7 +108,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item.setEnd("19:00");
         item.setType("Практическое занятие");
         item.setName("Анализ данных (анг)");
-        item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
+        item.setPlace("Ауд. 507Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
         list.add(item);
 
@@ -105,7 +117,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item.setEnd("20:20");
         item.setType("Практическое занятие");
         item.setName("Анализ данных (анг)");
-        item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
+        item.setPlace("Ауд. 501Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
         list.add(item);
 
@@ -115,7 +127,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item.setEnd("21:20");
         item.setType("Практическое занятие");
         item.setName("Анализ данных (анг)");
-        item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
+        item.setPlace("Ауд. 506Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
         list.add(item);
 
