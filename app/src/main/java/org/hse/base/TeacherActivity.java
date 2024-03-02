@@ -84,6 +84,7 @@ public class TeacherActivity extends BaseActivity {
         intent.putExtra(ScheduleActivity.ARG_TYPE, type);
         intent.putExtra(ScheduleActivity.ARG_MODE, mode);
         intent.putExtra(ScheduleActivity.ARG_NAME, group.getName());
+        intent.putExtra(ScheduleActivity.ARG_DATE, getResponseTime());
         startActivity(intent);
     }
 

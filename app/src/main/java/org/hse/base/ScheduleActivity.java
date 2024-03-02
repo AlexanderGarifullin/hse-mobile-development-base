@@ -21,14 +21,15 @@ public class ScheduleActivity extends AppCompatActivity {
     public static String ARG_MODE = "Mode";
     public static String ARG_ID = "Id";
     public static String ARG_NAME = "Name";
+    public static String ARG_DATE = "Time";
     public static int DEFAULT_ID = 0;
     private ScheduleMode mode;
     private ScheduleType type;
-    private String name;
+    private String name, time;
     private int id;
     private RecyclerView recyclerView;
     private ItemAdapter adapter;
-    private TextView scheduleTitle;
+    private TextView scheduleTitle, serverTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class ScheduleActivity extends AppCompatActivity {
         mode = (ScheduleMode) getIntent().getSerializableExtra(ARG_MODE);
         id = getIntent().getIntExtra(ARG_ID, DEFAULT_ID);
         name = getIntent().getStringExtra(ARG_NAME);
+        time = getIntent().getStringExtra(ARG_DATE);
 
         recyclerView = findViewById(R.id.timetable_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -54,10 +56,16 @@ public class ScheduleActivity extends AppCompatActivity {
 
         scheduleTitle = findViewById(R.id.scheduleTitle);
         setTitle();
+        serverTime = findViewById(R.id.serverTime);
+        setServerTime();
     }
 
     private void setTitle() {
         scheduleTitle.setText(name);
+    }
+
+    private void setServerTime() {
+        serverTime.setText(time);
     }
 
     private void initData() {

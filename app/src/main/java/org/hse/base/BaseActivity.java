@@ -27,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected TextView time;
     protected Date currentTime;
     private OkHttpClient client = new OkHttpClient();
+    private String responseTime ="time";
     protected void getTime() {
         Request request = new Request.Builder().url(URL).build();
         Call call = client.newCall(request);
@@ -51,6 +52,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         getTime();
     }
 
+    protected String getResponseTime() {
+        return responseTime;
+    }
+
     private void showTime(Date dateTime) {
         if (dateTime == null) {
             return;
@@ -63,9 +68,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                 dateSplit[1].substring(0,1).toUpperCase() +
                 dateSplit[1].substring(1);
         time.setText(timeText);
+
+        simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM",  Locale.forLanguageTag("RU"));
+        dateSplit = simpleDateFormat.format(currentTime).split(" ");
+        timeText = dateSplit[0].substring(0,1).toUpperCase() +
+                dateSplit[0].substring(1) + " " +
+                dateSplit[1] + " " +  dateSplit[2];
+        responseTime = timeText;
     }
 
     private void parseResponse(Response response) {
+        Log.i(TAG, "parseResponse: ");
         Gson gson = new Gson();
         ResponseBody body = response.body();
         try {
@@ -73,7 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 return;
             }
             String string = body.string();
-            Log.d(TAG, string);
             TimeResponse timeRespone = gson.fromJson(string, TimeResponse.class);
             String currentTimeVal = timeRespone.getTimeZone().getCurrentTime();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.getDefault());

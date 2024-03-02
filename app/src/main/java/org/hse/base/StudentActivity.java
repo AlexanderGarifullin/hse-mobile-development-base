@@ -57,6 +57,7 @@ public class StudentActivity extends BaseActivity {
         timeValue = findViewById(R.id.timeStudent);
 
         initTime(getString(R.string.studentType));
+        this.currentTime = super.currentTime;
 
         status = findViewById(R.id.status);
         subject = findViewById(R.id.subject);
@@ -80,12 +81,15 @@ public class StudentActivity extends BaseActivity {
         showScheduleImpl(ScheduleMode.STUDENT, type, (Group) selectedItem);
     }
 
+
+
     protected void showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
         Intent intent = new Intent(this, ScheduleActivity.class);
         intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
         intent.putExtra(ScheduleActivity.ARG_TYPE, type);
         intent.putExtra(ScheduleActivity.ARG_MODE, mode);
         intent.putExtra(ScheduleActivity.ARG_NAME, group.getName());
+        intent.putExtra(ScheduleActivity.ARG_DATE, getResponseTime());
         startActivity(intent);
     }
 
