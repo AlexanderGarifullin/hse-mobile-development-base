@@ -78,7 +78,7 @@ public class ScheduleActivity extends AppCompatActivity {
         ScheduleItem item = new ScheduleItem();
         item.setStart("10:30");
         item.setEnd("11:50");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 503Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
@@ -87,7 +87,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item = new ScheduleItem();
         item.setStart("12:10");
         item.setEnd("13:20");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 504Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
@@ -96,7 +96,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item = new ScheduleItem();
         item.setStart("13:40");
         item.setEnd("15:50");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 506Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
@@ -105,7 +105,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item = new ScheduleItem();
         item.setStart("16:00");
         item.setEnd("17:20");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 505Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
@@ -114,7 +114,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item = new ScheduleItem();
         item.setStart("17:40");
         item.setEnd("19:00");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 507Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
@@ -123,7 +123,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item = new ScheduleItem();
         item.setStart("19:10");
         item.setEnd("20:20");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 501Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
@@ -133,7 +133,7 @@ public class ScheduleActivity extends AppCompatActivity {
         item = new ScheduleItem();
         item.setStart("20:30");
         item.setEnd("21:20");
-        item.setType("Практическое занятие");
+        item.setType("ПРАКТИЧЕСКОЕ ЗАНЯТИЕ");
         item.setName("Анализ данных (анг)");
         item.setPlace("Ауд. 506Б Кочновский пр-д, д.3");
         item.setTeacher("Пред. Гущим Михаил Иванович");
