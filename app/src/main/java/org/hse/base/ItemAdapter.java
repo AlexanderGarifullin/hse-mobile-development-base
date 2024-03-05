@@ -67,5 +67,6 @@ public class ItemAdapter extends
 
     public void setDataList(List<ScheduleItem> dataList){
         this.dataList = dataList;
+        notifyDataSetChanged();
     }
 }

@@ -20,7 +20,6 @@ import java.util.Locale;
 public class StudentActivity extends BaseActivity {
 
     private TextView timeLabel, timeValue, status, subject, cabinet, corp, teacher;
-    private Date currentTime;
 
     Spinner spinner;
 
@@ -57,7 +56,6 @@ public class StudentActivity extends BaseActivity {
         timeValue = findViewById(R.id.timeStudent);
 
         initTime(getString(R.string.studentType));
-        this.currentTime = super.currentTime;
 
         status = findViewById(R.id.status);
         subject = findViewById(R.id.subject);
@@ -82,17 +80,6 @@ public class StudentActivity extends BaseActivity {
     }
 
 
-
-    protected void showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
-        Intent intent = new Intent(this, ScheduleActivity.class);
-        intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
-        intent.putExtra(ScheduleActivity.ARG_TYPE, type);
-        intent.putExtra(ScheduleActivity.ARG_MODE, mode);
-        intent.putExtra(ScheduleActivity.ARG_NAME, group.getName());
-        intent.putExtra(ScheduleActivity.ARG_DATE, getResponseTime());
-        startActivity(intent);
-    }
-
     private void initGroupList(List<Group> groups){
         int id = 1;
         String[] program = {"БИ","ПИ"};
@@ -108,15 +95,5 @@ public class StudentActivity extends BaseActivity {
     }
     private String unite(String program, int year, int groupNumber) {
         return program + "-" + year + "-" + groupNumber;
-    }
-
-
-    private void initData() {
-        timeLabel.setText(R.string.label_time);
-        status.setText(R.string.label_status_base);
-        subject.setText(R.string.label_subject_base);
-        cabinet.setText(R.string.label_cabinet_base);
-        corp.setText(R.string.label_corp_base);
-        teacher.setText(R.string.label_teacher_base);
     }
 }

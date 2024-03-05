@@ -55,7 +55,6 @@ public class TeacherActivity extends BaseActivity {
         timeLabel = findViewById(R.id.timeLabelStudent);
         timeValue = findViewById(R.id.time);
         initTime(getString(R.string.teacherType));
-
         status = findViewById(R.id.status);
         subject = findViewById(R.id.subject);
         cabinet = findViewById(R.id.cabinet);
@@ -78,28 +77,10 @@ public class TeacherActivity extends BaseActivity {
         showScheduleImpl(ScheduleMode.TEACHER, type, (Group) selectedItem);
     }
 
-    protected void showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
-        Intent intent = new Intent(this, ScheduleActivity.class);
-        intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
-        intent.putExtra(ScheduleActivity.ARG_TYPE, type);
-        intent.putExtra(ScheduleActivity.ARG_MODE, mode);
-        intent.putExtra(ScheduleActivity.ARG_NAME, group.getName());
-        intent.putExtra(ScheduleActivity.ARG_DATE, getResponseTime());
-        startActivity(intent);
-    }
-
     private void initGroupList(List<Group> groups){
         groups.add(new Group(1, "Преподаватель 1"));
         groups.add(new Group(2, "Преподаватель 2"));
     }
 
 
-    private void initData() {
-        timeLabel.setText(R.string.label_time);
-        status.setText(R.string.label_status_base);
-        subject.setText(R.string.label_subject_base);
-        cabinet.setText(R.string.label_cabinet_base);
-        corp.setText(R.string.label_corp_base);
-        teacher.setText(R.string.label_teacher_base);
-    }
 }

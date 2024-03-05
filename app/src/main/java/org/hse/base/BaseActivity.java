@@ -1,5 +1,6 @@
 package org.hse.base;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -27,7 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected TextView time;
     protected Date currentTime;
     private OkHttpClient client = new OkHttpClient();
-    private String responseTime ="time";
     protected void getTime() {
         Request request = new Request.Builder().url(URL).build();
         Call call = client.newCall(request);
@@ -52,9 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         getTime();
     }
 
-    protected String getResponseTime() {
-        return responseTime;
-    }
 
     private void showTime(Date dateTime) {
         if (dateTime == null) {
@@ -68,13 +65,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 dateSplit[1].substring(0,1).toUpperCase() +
                 dateSplit[1].substring(1);
         time.setText(timeText);
-
-        simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM",  Locale.forLanguageTag("RU"));
-        dateSplit = simpleDateFormat.format(currentTime).split(" ");
-        timeText = dateSplit[0].substring(0,1).toUpperCase() +
-                dateSplit[0].substring(1) + " " +
-                dateSplit[1] + " " +  dateSplit[2];
-        responseTime = timeText;
     }
 
     private void parseResponse(Response response) {
@@ -94,5 +84,31 @@ public abstract class BaseActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG,"",e);
         }
+    }
+
+    protected void showScheduleImpl(ScheduleMode mode, ScheduleType type, Group group) {
+        Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra(ScheduleActivity.ARG_ID, group.getId());
+        intent.putExtra(ScheduleActivity.ARG_TYPE, type);
+        intent.putExtra(ScheduleActivity.ARG_MODE, mode);
+        intent.putExtra(ScheduleActivity.ARG_NAME, group.getName());
+        intent.putExtra(ScheduleActivity.ARG_DATE, currentTime);
+        startActivity(intent);
+    }
+
+    public void initData() {
+        TextView timeLabel, status, subject, cabinet,corp,  teacher;
+        timeLabel = findViewById(R.id.timeLabelStudent);
+        status = findViewById(R.id.status);
+        subject = findViewById(R.id.subject);
+        cabinet = findViewById(R.id.cabinet);
+        corp = findViewById(R.id.corp);
+        teacher = findViewById(R.id.teacher);
+        timeLabel.setText(R.string.label_time);
+        status.setText(R.string.label_status_base);
+        subject.setText(R.string.label_subject_base);
+        cabinet.setText(R.string.label_cabinet_base);
+        corp.setText(R.string.label_corp_base);
+        teacher.setText(R.string.label_teacher_base);
     }
 }
