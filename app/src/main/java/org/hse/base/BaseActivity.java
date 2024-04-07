@@ -1,11 +1,14 @@
 package org.hse.base;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 
@@ -23,11 +26,19 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public abstract class BaseActivity extends AppCompatActivity {
+    protected  MainViewModel mainViewModel;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    }
+
     private final static String TAG = "BaseActivity";
     public static final String URL = "https://api.ipgeolocation.io/ipgeo?apiKey=b03018f75ed94023a005637878ec0977";
     protected TextView time;
     protected Date currentTime;
     private OkHttpClient client = new OkHttpClient();
+
     protected void getTime() {
         Request request = new Request.Builder().url(URL).build();
         Call call = client.newCall(request);
